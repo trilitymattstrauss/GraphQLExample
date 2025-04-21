@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "c13714c4-8d5f-44c0-a3c0-e8243489f4a1",
+    "Title": "The Lord of the Rings",
+    "AuthorId": "3d40a693-a952-400b-a53e-d9d07d132e0b"
+  },
+  {
+    "Id": "07cefb5f-001b-467f-b8cb-dd7718acf469",
+    "Title": "The Hobbit",
+    "AuthorId": "3d40a693-a952-400b-a53e-d9d07d132e0b"
+  },
+  {
+    "Id": "09c60e6c-477d-4213-a9f3-823dfbac3d97",
+    "Title": "Harry Potter and the Sorcerer's Stone",
+    "AuthorId": "799aa92a-e98b-4524-881b-269e70a23cb8"
+  },
+  {
+    "Id": "231f8391-c5a6-4a33-bfc5-bbdb6cbd54ad",
+    "Title": "Fantastic Beasts and Where to Find Them",
+    "AuthorId": "799aa92a-e98b-4524-881b-269e70a23cb8"
+  },
+  {
+    "Id": "b0280eb8-4c91-4642-b6f9-c5352d1baaba",
+    "Title": "The Old Man and the Sea",
+    "AuthorId": "90b4017b-8a2f-4392-a4ba-117ea24b3eae"
+  },
+  {
+    "Id": "5e6beb33-7c8a-4fff-8077-faa0328d5381",
+    "Title": "A Farewell to Arms",
+    "AuthorId": "90b4017b-8a2f-4392-a4ba-117ea24b3eae"
+  }
+]
