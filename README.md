@@ -46,3 +46,32 @@ rover dev \
 ```
 * This should then start up the Apollo router based on the `router-config-dev.yaml` file, which will start it at http://localhost:4000
 * Going to this URL should bring up the Apollo Studio UI, and will let you browse and run queries against all of the APIs at once.
+
+# Querying the Graph
+
+* On either the specific API UI or the federated graph UI, open up a query document.
+* Some example queries that you can run:
+```
+-- Query hitting a specific API only (can be run from an API specific URL):
+query ExampleQuery {
+  books {
+    author {
+      name
+    }
+    title
+  }
+}
+
+-- Query that utilizes Apollo Federation (must be executed from the Apollo UI (port 4000)
+query ExampleQuery {
+  books {
+    author {
+      name
+    }
+    library {
+      name
+    }
+    title
+  }
+}
+```
