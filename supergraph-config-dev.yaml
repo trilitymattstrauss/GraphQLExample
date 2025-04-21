@@ -3,8 +3,8 @@ subgraphs:
   book:
     routing_url: http://localhost:4001/graphql
     schema:
-      file: ./schema.graphql
+      file: ./BookApi/schema.graphql
   library:
     routing_url: http://localhost:4002/graphql
     schema:
-      file: ../LibraryApi/schema.graphql
+      file: ./LibraryApi/schema.graphql

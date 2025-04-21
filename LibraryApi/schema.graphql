@@ -1,4 +1,8 @@
-schema {
+schema
+@link(
+    url: "https://specs.apollo.dev/federation/v2.6"
+    import: ["@tag", "FieldSet"]
+) {
     query: Query
 }
 
@@ -8,6 +12,12 @@ type Library {
 
 type Query {
     library: Library! @cost(weight: "10")
+    _service: _Service!
+}
+
+"This type provides a field named sdl: String! which exposes the SDL of the service's schema. This SDL (schema definition language) is a printed version of the service's schema including the annotations of federation directives. This SDL does not include the additions of the federation spec."
+type _Service {
+    sdl: String!
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
@@ -15,3 +25,17 @@ directive @cost(
     "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
     weight: String!
 ) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"Links definitions within the document to external schemas."
+directive @link(
+    "Gets imported specification url."
+    url: String!
+    "Gets optional list of imported element names."
+    import: [String!]
+) repeatable on SCHEMA
+
+"Scalar representing a set of fields."
+scalar FieldSet
+
+"The _Any scalar is used to pass representations of entities from external services into the root _entities field for execution. Validation of the _Any scalar is done by matching the __typename and @external fields defined in the schema."
+scalar _Any
