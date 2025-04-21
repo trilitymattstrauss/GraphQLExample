@@ -1,21 +1,26 @@
 schema
 @link(
     url: "https://specs.apollo.dev/federation/v2.6"
-    import: ["@tag", "FieldSet"]
+    import: ["@tag", "@key", "FieldSet"]
 ) {
     query: Query
     mutation: Mutation
 }
 
-type Author {
-    id: String!
+type Author @key(fields: "id") {
+    id: ID!
     name: String!
 }
 
-type Book {
-    id: String!
+type Book @key(fields: "id") {
+    library: Library!
+    id: ID!
     title: String!
     author: Author
+}
+
+type Library @key(fields: "id") {
+    id: ID!
 }
 
 type Mutation {
@@ -26,6 +31,7 @@ type Query {
     books: [Book!]! @cost(weight: "10")
     book(id: String!): Book @cost(weight: "10")
     _service: _Service!
+    _entities(representations: [_Any!]!): [_Entity]!
 }
 
 "This type provides a field named sdl: String! which exposes the SDL of the service's schema. This SDL (schema definition language) is a printed version of the service's schema including the annotations of federation directives. This SDL does not include the additions of the federation spec."
@@ -33,10 +39,14 @@ type _Service {
     sdl: String!
 }
 
+"Union of all types that key directive applied. This information is needed by the Apollo federation gateway."
+union _Entity = Book | Author | Library
+
 input BookInput {
     id: String!
     title: String!
     authorId: String!
+    libraryId: String!
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
@@ -44,6 +54,12 @@ directive @cost(
     "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
     weight: String!
 ) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"Used to indicate a combination of fields that can be used to uniquely identify and fetch an object or interface."
+directive @key(
+    fields: FieldSet!
+    resolvable: Boolean = true
+) repeatable on OBJECT | INTERFACE
 
 "Links definitions within the document to external schemas."
 directive @link(
