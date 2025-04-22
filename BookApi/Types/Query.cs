@@ -12,6 +12,13 @@ public static class Query
         return JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
     }
 
+    public static List<Author> GetAuthors()
+    {
+        var data = File.ReadAllText("Data/Authors.json");
+
+        return JsonConvert.DeserializeObject<List<Author>>(data) ?? [];
+    }
+
     public static Book? GetBook(string id)
     {
         var data = File.ReadAllText("Data/Books.json");

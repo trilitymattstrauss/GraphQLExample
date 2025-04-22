@@ -29,6 +29,7 @@ type Mutation {
 
 type Query {
     books: [Book!]! @cost(weight: "10")
+    authors: [Author!]! @cost(weight: "10")
     book(id: String!): Book @cost(weight: "10")
     _service: _Service!
     _entities(representations: [_Any!]!): [_Entity]!
