@@ -1,4 +1,5 @@
 using BookApi.Inputs;
+using Newtonsoft.Json;
 
 namespace BookApi.Types;
 
@@ -7,6 +8,14 @@ public class Mutation
 {
     public Book AddBook(BookInput book)
     {
-        return new Book(book.Id, book.Title, book.AuthorId, book.LibraryId);
+        var data = File.ReadAllText("Data/Books.json");
+        var books = JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
+        
+        var bookToAdd = new Book(book.Id, book.Title, book.AuthorId, book.LibraryId);
+        books.Add(bookToAdd);
+        
+        File.WriteAllText("Data/Books.json", JsonConvert.SerializeObject(books, Formatting.Indented));
+        
+        return bookToAdd;
     }
 }
