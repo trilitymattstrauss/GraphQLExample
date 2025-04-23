@@ -1,3 +1,4 @@
+using BookApi.Inputs;
 using Newtonsoft.Json;
 
 namespace BookApi.Types;
@@ -19,11 +20,16 @@ public static class Query
         return JsonConvert.DeserializeObject<List<Author>>(data) ?? [];
     }
 
-    public static Book? GetBook(string id)
+    public static Book? GetBook(BookQueryInput input)
     {
         var data = File.ReadAllText("Data/Books.json");
         var books = JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
 
-        return books.Find(a => a.Id == id);
+        return books.Find(a =>
+        {
+            if (input.Id != null && a.Id == input.Id)
+                return true;
+            return input.Title != null && a.Title == input.Title;
+        });
     }
 }
