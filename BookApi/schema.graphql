@@ -1,4 +1,4 @@
-﻿schema @link(url: "https:\/\/specs.apollo.dev\/federation\/v2.6", import: [ "@tag", "@key", "FieldSet" ]) {
+﻿schema @link(url: "https:\/\/specs.apollo.dev\/federation\/v2.6", import: [ "@key", "@tag", "FieldSet" ]) {
   query: Query
   mutation: Mutation
 }
@@ -24,7 +24,7 @@ type Mutation {
 }
 
 type Query {
-  books: [Book!]! @cost(weight: "10")
+  books(input: BooksQueryInput): [Book!]! @cost(weight: "10")
   authors: [Author!]! @cost(weight: "10")
   book(input: BookQueryInput!): Book @cost(weight: "10")
   _service: _Service!
@@ -49,6 +49,13 @@ input BookInput {
 input BookQueryInput {
   id: String
   title: String
+}
+
+input BooksQueryInput {
+  id: String
+  title: String
+  authorId: String
+  libraryId: String
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."

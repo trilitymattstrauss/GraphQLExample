@@ -6,11 +6,26 @@ namespace BookApi.Types;
 [QueryType]
 public static class Query
 {
-    public static List<Book> GetBooks()
+    public static List<Book> GetBooks(BooksQueryInput? input)
     {
         var data = File.ReadAllText("Data/Books.json");
+        var books = JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
 
-        return JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
+        if (input != null)
+        {
+            return books.FindAll(a =>
+            {
+                if (input.Id != null && a.Id == input.Id)
+                    return true;
+                if (input.Title != null && a.Title == input.Title)
+                    return true;
+                if (input.LibraryId != null && a.LibraryId == input.LibraryId)
+                    return true;
+                return input.AuthorId != null && a.AuthorId == input.AuthorId;
+            });
+        }
+
+        return books;
     }
 
     public static List<Author> GetAuthors()
