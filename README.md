@@ -9,18 +9,11 @@ Example GraphQL API using C# and Hot Chocolate
 ln -s /usr/local/share/dotnet/x64/dotnet /usr/local/bin/
 ```
 * If done correctly, you should now have the `dotnet` command available in your terminal.
-* To run the API, go to the root of the API project and run the following command:
-```
-dotnet run --no-hot-reload
-```
-* Once completed, you should now be able to go to http://localhost:4001/graphql which will bring up a GraphQL explorer to view the API.  Replace `4001` with the configured port of the API being run.
+* Run `npm run bookapi:run` or `npm run libraryapi:run` at the root of the repository.
 
 # To update the schema.graphql file after a change
 
-When in one of the API projects, run the following command at the root level of the project:
-```
-dotnet run -- schema export --output schema.graphql
-```
+* Run `npm run bookapi:schema` or `npm run libraryapi:schema`
 
 # To start the Apollo Supergraph locally
 
@@ -38,14 +31,16 @@ dotnet run -- schema export --output schema.graphql
 * Ensure that the `routing_url` is the same as the URL to access the specific API.
 * Ensure that the path to the `schema.graphql` file is correct (relative to the yaml file)
 * First, start up the APIs listed in `supergraph-config-dev.yaml`.
-* Next, run the below command to start the supergraph router (you should be in the directory with the yaml files when running this command):
-```
-rover dev \
---supergraph-config supergraph-config-dev.yaml \
---router-config router-config-dev.yaml
-```
+* Run `npm run router:start`
 * This should then start up the Apollo router based on the `router-config-dev.yaml` file, which will start it at http://localhost:4000
 * Going to this URL should bring up the Apollo Studio UI, and will let you browse and run queries against all of the APIs at once.
+
+# To start as a container
+
+* Ensure that you have Docker installed and running.
+* Run `npm run start`
+* This will start both APIs and will run the router (this is not yet containerized).
+* To stop, kill the router process, then run `npm run stop` to clean up the containers.
 
 # Querying the Graph
 

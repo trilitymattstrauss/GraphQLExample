@@ -5,11 +5,13 @@
     "bookapi:container": "docker run --name book-api --rm -d -p 4001:8080 bookapi",
     "bookapi:stop": "docker stop book-api",
     "bookapi:start": "npm run bookapi:publish && npm run bookapi:container",
+    "bookapi:schema": "cd BookApi && dotnet run -- schema export --output schema.graphql",
     "libraryapi:run": "cd LibraryApi && dotent run --no-hot-reload",
     "libraryapi:publish": "cd LibraryApi && dotnet publish /t:PublishContainer",
     "libraryapi:container": "docker run --name library-api --rm -d -p 4002:8080 libraryapi",
     "libraryapi:start": "npm run libraryapi:publish && npm run libraryapi:container",
     "libraryapi:stop": "docker stop library-api",
+    "libraryapi:schema": "cd LibraryApi && dotnet run -- schema export --output schema.graphql",
     "router:start": "rover dev --supergraph-config supergraph-config-dev.yaml --router-config router-config-dev.yaml",
     "start": "npm run bookapi:start && npm run libraryapi:start && npm run router:start",
     "stop": "npm run bookapi:stop && npm run libraryapi:stop"
