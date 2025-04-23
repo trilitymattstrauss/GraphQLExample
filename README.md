@@ -17,10 +17,10 @@ dotnet run --no-hot-reload
 
 # To update the schema.graphql file after a change
 
-* In order to make changes to the API available to the federated graph, you will need to make sure that the `schema.graphql` file contains the latest schema definition.
-* To do so, start the API using the steps above.
-* In the explorer, open a new or existing document, then click on the `Schema` tab.
-* Copy the contents from this tab to the `schema.graphql` file in the project.
+When in one of the API projects, run the following command at the root level of the project:
+```
+dotnet run -- schema export --output schema.graphql
+```
 
 # To start the Apollo Supergraph locally
 
@@ -60,6 +60,13 @@ query ExampleQuery {
     }
     title
   }
+}
+
+-- Example mutation call (will need a JSON object for book provided in the request):
+mutation AddBook($book: BookInput!) {
+    addBook(book: $book) {
+        id
+    }
 }
 
 -- Query that utilizes Apollo Federation (must be executed from the Apollo UI (port 4000)
