@@ -23,4 +23,6 @@ public class Book(string id, string title, string authorId, string libraryId)
         var books = JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
         return books.Find(a => a.Id == id) ?? null;
     }
+    
+    public override string ToString() => "Id: " + Id + ", Title: " + Title + ", AuthorId: " + AuthorId + ", LibraryId: " + LibraryId;
 }

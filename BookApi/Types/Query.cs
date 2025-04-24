@@ -11,7 +11,11 @@ public static class Query
         var data = File.ReadAllText("Data/Books.json");
         var books = JsonConvert.DeserializeObject<List<Book>>(data) ?? [];
 
-        if (input != null)
+        if (input != null
+            && !(string.IsNullOrEmpty(input.Id)
+                && string.IsNullOrEmpty(input.Title)
+                && string.IsNullOrEmpty(input.AuthorId)
+                && string.IsNullOrEmpty(input.LibraryId)))
         {
             return books.FindAll(a =>
             {
