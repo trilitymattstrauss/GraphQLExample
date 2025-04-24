@@ -41,6 +41,7 @@ ln -s /usr/local/share/dotnet/x64/dotnet /usr/local/bin/
 * Run `npm run start`
 * This will start both APIs and will run the router (this is not yet containerized).
 * To stop, kill the router process, then run `npm run stop` to clean up the containers.
+* WARNING: Currently, the mutation call fails when running in a container due to it trying to write to a file in the container.
 
 # Querying the Graph
 
