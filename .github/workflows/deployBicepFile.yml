@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
 name: Azure ARM
 permissions:
   id-token: write
